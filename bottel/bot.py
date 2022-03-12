@@ -11,17 +11,20 @@ logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
 
 def greet_user(update, context):
     print('Вызван /start')
+    logging.info('Вызван /start')
     text = 'Привет, ' + update.message.chat.first_name + ' ' + update.message.chat.last_name
     context.bot.sendMessage(chat_id=update.message.chat_id, text=text)
     print('Пользователю отпавлено сообщение: ', text)
+    logging.info('Пользователю отпавлено сообщение: ' + text)
 
 
 def talk_to_me(update, context):
-    print(update.message)
-    
     text = 'Вы написали нам: ' + update.message.text
+    logging.info('Пользователь написал нам: ' + update.message.text)
+    print('Пользователь написал нам: ', update.message.text)
     context.bot.sendMessage(chat_id=update.message.chat_id, text=text)
     print('Пользователю отпавлено сообщение: ', text)
+    logging.info('Пользователю отпавлено сообщение: ' + text)
 
 
 def main():

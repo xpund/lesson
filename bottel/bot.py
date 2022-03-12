@@ -28,18 +28,15 @@ def talk_to_me(update, context):
 
 
 def main():
-    mybot = Updater(pass2.token)
+    my_bot = Updater(pass2.token)
 
     logging.info('Бот запускается')
-    dp = mybot.dispatcher
+    dp = my_bot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
     dp.add_handler(MessageHandler(Filters.text, talk_to_me))
 
-
-    mybot.start_polling()
-    mybot.idle()
-
-    print(mybot.logger)
+    my_bot.start_polling()
+    my_bot.idle()
 
 
 main()

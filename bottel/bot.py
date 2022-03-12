@@ -1,9 +1,38 @@
-from telegram.ext import Updater
+import logging
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import pass2
+
+
+logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
+                    level=logging.INFO,
+                    filename='bot.log'
+                    )
+
+
+def greet_user(update, context):
+    print('Вызван /start')
+    text = 'Привет, ' + update.message.chat.first_name + ' ' + update.message.chat.last_name
+    context.bot.sendMessage(chat_id=update.message.chat_id, text=text)
+    print('Пользователю отпавлено сообщение: ', text)
+
+
+def talk_to_me(update, context):
+    print(update.message)
+    
+    text = 'Вы написали нам: ' + update.message.text
+    context.bot.sendMessage(chat_id=update.message.chat_id, text=text)
+    print('Пользователю отпавлено сообщение: ', text)
 
 
 def main():
     mybot = Updater(pass2.token)
+
+    logging.info('Бот запускается')
+    dp = mybot.dispatcher
+    dp.add_handler(CommandHandler("start", greet_user))
+    dp.add_handler(MessageHandler(Filters.text, talk_to_me))
+
+
     mybot.start_polling()
     mybot.idle()
 
